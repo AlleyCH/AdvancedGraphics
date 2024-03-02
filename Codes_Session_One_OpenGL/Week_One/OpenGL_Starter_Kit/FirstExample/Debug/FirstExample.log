@@ -1,0 +1,3 @@
+﻿  Triangles.cpp
+C:\Users\Alireza\Downloads\Week_One\OpenGL_Starter_Kit\FirstExample\Triangles.cpp(50): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+  FirstExample.vcxproj -> C:\Users\Alireza\Downloads\Week_One\OpenGL_Starter_Kit\Debug\FirstExample.exe
