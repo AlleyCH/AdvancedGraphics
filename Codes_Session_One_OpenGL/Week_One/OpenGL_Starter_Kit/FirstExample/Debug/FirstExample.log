@@ -1,3 +1,5 @@
 ﻿  Triangles.cpp
-C:\Users\Alireza\Downloads\Week_One\OpenGL_Starter_Kit\FirstExample\Triangles.cpp(50): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-  FirstExample.vcxproj -> C:\Users\Alireza\Downloads\Week_One\OpenGL_Starter_Kit\Debug\FirstExample.exe
+C:\Users\Owner\Documents\AdvancedGraphics\Codes_Session_One_OpenGL\Week_One\OpenGL_Starter_Kit\FirstExample\Triangles.cpp(94,2): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+freeglut_static_vs2010_d.lib(freeglut_joystick.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'freeglut_static_vs2010_d.lib(freeglut_joystick.obj)' or at 'C:\Users\Owner\Documents\AdvancedGraphics\Codes_Session_One_OpenGL\Week_One\OpenGL_Starter_Kit\Debug\vc100.pdb'; linking object as if no debug info
+freeglut_static_vs2010_d.lib(freeglut_menu.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'freeglut_static_vs2010_d.lib(freeglut_menu.obj)' or at 'C:\Users\Owner\Documents\AdvancedGraphics\Codes_Session_One_OpenGL\Week_One\OpenGL_Starter_Kit\Debug\vc100.pdb'; linking object as if no debug info
+  FirstExample.vcxproj -> C:\Users\Owner\Documents\AdvancedGraphics\Codes_Session_One_OpenGL\Week_One\OpenGL_Starter_Kit\Debug\FirstExample.exe

@@ -21,6 +21,7 @@ GLuint Buffers[NumBuffers];
 
 const GLuint NumVertices = 6;
 
+
 //Will be used to store the location of our model-view matrix in VRAM
 GLuint location;
 
@@ -47,10 +48,10 @@ void init(void)
 		// We use two triangles and connect them together to get a square. We're ONLY allowed to use triangles in this course.
 
 		//First triangle
-		{ -0.45, 0.45 }, 
+		{ -0.45, 0.45 },
 		{ 0.45, 0.45 },
 		{ 0.45, -0.45 },
-		
+
 		//Second triangle
 		{ 0.45, -0.45 },
 		{ -0.45, -0.45 },
@@ -66,7 +67,7 @@ void init(void)
 		{ 1,0,0 }, // colors for vertices of the second triangle
 		{ 0,1,0 },
 		{ 0,0,1 }
-		
+
 	};
 
 	//We allocate two buffers in VRAM: One for vertex data and the other for colors
@@ -77,12 +78,16 @@ void init(void)
 	//Initializing the first buffer: Buffers[0]
 	//-----------------------------------------
 
+
+
+
+
 	//Selecting Buffers[0]
 	glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
-	
+
 	//Pushing the vertices data into the buffer (transmission from RAM to VRAM)
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),	vertices, GL_STATIC_DRAW);
-	
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
 	//During the run-time, the buffer data should be transferred to the "vPosition" variable in the vertex shader
 	glBindAttribLocation(program, 0, "vPosition");
 
@@ -90,7 +95,7 @@ void init(void)
 	// GL_FLOAT: They are float as we have used a GLfloat[] array up in the code
 	// 2: They must be considered as couples since we have 2D vertices (X, Y)
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	
+
 	//Enable the buffer
 	glEnableVertexAttribArray(0);
 	//-------------------------------------------------------------------------
@@ -144,14 +149,23 @@ void display(void)
 	//Building our transformation matrices using glm library
 
 	//NOTE: 
-	//THE ORDER OF TRANSFOEMATION DOES MATTER. A rotation followed by a translation- 
+	//THE ORDER OF TRANSFORMATION DOES MATTER. A rotation followed by a translation- 
 	//might return a different outcome than a translation followed by a rotation.
+	float xPos = 0.5f * cos(alpha);  // X-coordinate
+	float yPos = 0.5f * sin(alpha);
 
-	//We'd like to translate our geometry 0.5 units along the X-axis
-	glm::mat4 model_view_matrix = glm::translate(glm::mat4(1.0), glm::vec3(0.5, 0.0, 0.0));
+	glm::mat4 model_view_matrix = glm::mat4(1.0f);
 
-	//Next, we'd like to rtate the translated geometry about Z-axis
+	// Set the position of the square in the orbit
+
+	model_view_matrix = glm::translate(model_view_matrix, glm::vec3(xPos, yPos, 0.0f));
+	// alpha allows it to loop
+
 	model_view_matrix = glm::rotate(model_view_matrix, alpha, glm::vec3(0, 0, 1));
+	// rotates sqaure
+
+	model_view_matrix = glm::rotate(model_view_matrix, alpha, glm::vec3(0, 0, 1));
+	// rotates square again but on it's local axis
 
 	//Finally, we'll shrink the geometry to 70% of the original dimensions in X, Y directions
 	model_view_matrix = glm::scale(model_view_matrix, glm::vec3(0.7, 0.7, 0.0));
@@ -159,12 +173,12 @@ void display(void)
 	//Passing the built model-view_matrix to the vertex shader. Recall: variable 'location' contains the memory address of the model_view
 	//matrix that is used in our vertex shader.
 	glUniformMatrix4fv(location, 1, GL_FALSE, &model_view_matrix[0][0]);
-	
+
 	glDrawArrays(GL_TRIANGLES, 0, 6);	//Connect the vertices using "GL_TRIANGLES" modes.
 										//Read more about draw modes here:
 										//https://www.glprogramming.com/red/chapter02.html
 										//https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glDrawArrays.xml
-	
+
 	glFlush();							//Flush the rendered contents on the screen.
 }
 
@@ -219,7 +233,7 @@ main(int argc, char** argv)
 
 	//The following function makes the OpenGL to go through an infinite loop and waits for any event from keyboard, mouse, etc.
 	glutMainLoop();
-	
-	
+
+
 
 }

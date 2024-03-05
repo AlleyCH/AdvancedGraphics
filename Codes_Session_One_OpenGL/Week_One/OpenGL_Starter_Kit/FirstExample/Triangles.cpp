@@ -15,7 +15,7 @@ const GLint NumBuffers = 2;
 
 GLuint Buffers[NumBuffers];
 
-const GLuint NumVertices = 6;
+const GLuint NumVertices = 12;
 
 //---------------------------------------------------------------------
 //
@@ -36,28 +36,78 @@ void init(void)
 
 	GLfloat vertices[NumVertices][2] = {
 		// We use two triangles and connect them together to get a square. We're ONLY allowed to use triangles in this course.
-
+		// I used only right angle triangles 
 		//First triangle
-		{ -0.45, 0.45 }, 
-		{ 0.45, 0.45 },
-		{ 0.45, -0.45 },
-		
-		//Second triangle
-		{ 0.45, -0.45 },
-		{ -0.45, -0.45 },
-		{ -0.45, 0.45 }
+	//	{ -0.45, 0.45 }, // top left 
+	//	{ 0.45, 0.45 }, // top right 
+	//	{ 0.45, -0.45 }, // bottom right
 
+	//	//Second triangle
+	//	{ 0.45, -0.45 }, // bottom right
+	//	{ -0.45, -0.45 }, // bottom left
+	//	{ -0.45, 0.45 },  // top left
+
+	//		// Third triangle
+
+	//	// Third triangle
+	//	{ 0.45, 0.45 },  // Top right 
+	//	{ 0.7, 0 },      // Upper right vertex of the hexagon
+	//	{ 0.45, 0}, // Bottom in the middle 
+
+	//	// Fourth triangle
+	//	{ 0.45, -0.45 },  // Top right 
+	//	{ 0.7, 0 },      // Upper right vertex of the hexagon
+	//	{ 0.45, 0}, // Top left 
+
+
+	//// Fifth triangle (top left)
+	//	{ -0.7, 0 },// Upper right vertex of the hexagon
+	//	{ -0.45, 0}, // Bottom in the middle    // Bottom vertex of the hexagon 
+	//	{ -0.45, 0.45 },  // Top right 
+
+	////  Sixth triangle (bottom left)
+	//	{ -0.7, 0 },
+	//	{ -0.45, 0}, 
+	//	{ -0.45, -0.45} 
+
+		// To use not only right angle triangles 
+
+		{ -0.45, 0.45 }, // top left 
+		{ 0.45, 0.45 }, // top right 
+		{ 0.45, -0.45 }, // bottom right
+
+		//Second triangle
+		{ 0.45, -0.45 }, // bottom right
+		{ -0.45, -0.45 }, // bottom left
+		{ -0.45, 0.45 },  // top left
+
+
+		//third Triangle
+		{ 0.9, 0 }, // top left 
+		{ 0.45, 0.45 }, // top right 
+		{ 0.45, -0.45 }, // bottom right
+
+		//SecFourth triangle
+		{-0.9, 0 }, // bottom right
+		{ -0.45, -0.45 }, // bottom left
+		{ -0.45, 0.45 },  // top left
 	};
 
 	GLfloat colorData[NumVertices][3] = {
 		{ 1,0,0 }, // colors for vertices of the first triangle
 		{ 0,1,0 },
 		{ 0,0,1 },
-
-		{ 1,0,0 }, // colors for vertices of the second triangle
+			{ 1,0,0 }, // colors for vertices of the second triangle
 		{ 0,1,0 },
-		{ 0,0,1 }
-		
+		{ 0,0,1 },
+			{ 1,0,0 }, // colors for vertices of the third triangle
+		{ 0,1,0 },
+		{ 0,0,1 },
+			{ 1,0,0 }, // colors for vertices of the fourth triangle
+		{ 0,1,0 },
+		{ 0,0,1 },
+
+
 	};
 
 	//We allocate two buffers in VRAM: One for vertex data and the other for colors
@@ -70,10 +120,10 @@ void init(void)
 
 	//Selecting Buffers[0]
 	glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
-	
+
 	//Pushing the vertices data into the buffer (transmission from RAM to VRAM)
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),	vertices, GL_STATIC_DRAW);
-	
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
 	//During the run-time, the buffer data should be transferred to the "vPosition" variable in the vertex shader
 	glBindAttribLocation(program, 0, "vPosition");
 
@@ -81,7 +131,7 @@ void init(void)
 	// GL_FLOAT: They are float as we have used a GLfloat[] array up in the code
 	// 2: They must be considered as couples since we have 2D vertices
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	
+
 	//Enable the buffer
 	glEnableVertexAttribArray(0);
 	//-------------------------------------------------------------------------
@@ -133,12 +183,12 @@ void init(void)
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT);	//Clears the screen and ready to draw
-	
-	glDrawArrays(GL_TRIANGLES, 0, 6);	//Connect the vertices using "GL_TRIANGLES" modes.
+
+	glDrawArrays(GL_TRIANGLES, 0, NumVertices);	//Connect the vertices using "GL_TRIANGLES" modes.
 										//Read more about draw modes here:
 										//https://www.glprogramming.com/red/chapter02.html
 										//https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glDrawArrays.xml
-	
+
 	glFlush();							//Flush the rendered contents on the screen.
 }
 
@@ -157,7 +207,7 @@ void mouse(int state, int button, int x, int y)
 //This function gets called for every frame. This will be used to animate the world 
 void idle()
 {
-	
+
 	//glutPostRedisplay();	//This is the explicit call to display function: display()
 }
 
@@ -190,7 +240,7 @@ main(int argc, char** argv)
 
 	//The following function makes the OpenGL to go through an infinite loop and waits for any event from keyboard, mouse, etc.
 	glutMainLoop();
-	
-	
+
+
 
 }
