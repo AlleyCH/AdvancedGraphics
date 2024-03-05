@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Week_One",
-    "\\Week_One\\OpenGL_Starter_Kit"
+    "\\Week_One\\OpenGL_Starter_Kit",
+    "\\Week_One\\OpenGL_Starter_Kit\\FirstExample"
   ],
-  "SelectedNode": "\\Week_One\\OpenGL_Starter_Kit\\FirstExample.sln",
+  "SelectedNode": "\\Week_One\\OpenGL_Starter_Kit\\FirstExample\\Triangles.cpp",
   "PreviewInSolutionExplorer": false
 }
