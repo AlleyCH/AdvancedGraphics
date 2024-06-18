@@ -1,0 +1,38 @@
+#pragma kernel SolidRed
+#pragma kernel SolidGreen
+#pragma kernel CheckerBoard
+
+RWTexture2D<float4> Result;
+
+
+[numthreads(16,16,1)]
+void SolidRed(uint3 id : SV_DispatchThreadID){
+
+    Result[id.xy] = float4(1.0, 1.0, 0.0, 1.0);
+
+}
+
+[numthreads(16,16,1)]
+void SolidGreen(uint3 id : SV_DispatchThreadID){
+
+    Result[id.xy] = float4(0.1, 0.0, 0.0, 1.0);
+
+}
+
+// Make a checker board
+// 8 by 8
+// black and white
+
+[numthreads(32, 32, 1)] // This for some reason works with 16, 16 (And Idk why)
+void CheckerBoard(uint3 id : SV_DispatchThreadID) {
+    // 64 squares ( 8 by 8)
+    int x = id.x/32;
+    int y = id.y/32;
+    // every other square is black
+    bool even = (x+y)%2 == 0;
+    if (even)
+        Result[id.xy] = float4(0.0, 0.0, 0.0, 1.0);
+    else
+        Result[id.xy] = float4(1.0, 1.0, 1.0, 1.0); 
+}
+
